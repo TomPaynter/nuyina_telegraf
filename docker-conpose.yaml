@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  telegraf:
+    image: telegraf:1.30-alpine
+    container_name: telegraf
+    hostname: telegraf
+    restart: unless-stopped
+
+    volumes:
+      # Single mountpoint for all Telegraf configs
+      - ./config:/etc/telegraf:ro
+
+      # Logs to be tailed
+      - /log:/log:ro
+
+    environment:
+      - HOSTNAME=${HOSTNAME}
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_ORG=AADC
+      - INFLUX_BUCKET=telegraf
+      - INFLUX_TOKEN=${INFLUX_TOKEN}
+
+    command:
+      - telegraf
+      - --config
+      - /etc/telegraf/telegraf.conf
+      - --config-directory
+      - /etc/telegraf/telegraf.d
