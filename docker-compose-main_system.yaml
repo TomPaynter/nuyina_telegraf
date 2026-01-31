@@ -1,0 +1,5 @@
+    environment:
+      - INFLUX_URL=http://172.16.29.2:8086/
+      - INFLUX_ORG=AADC
+      - INFLUX_BUCKET=openrvdas
+      - INFLUX_TOKEN=veeoqXe861nJC2g0jO6sRjwBxwbZB9WH6UAvt1nCFmbgSqn9_hIT76gkEmBgxUi1c6vwRBi7Z6sorJ1-UYi47w==

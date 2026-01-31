@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   telegraf:
-    image: telegraf:1.30-alpine
+    image: telegraf:latest
     container_name: telegraf
     hostname: telegraf
     restart: unless-stopped
@@ -12,14 +12,15 @@ services:
       - ./config:/etc/telegraf:ro
 
       # Logs to be tailed
-      - /log:/log:ro
+      - ./test_data:/flat_files:ro
+      - /mnt/current_voyage/satellite_navigation/seapath_1/raw/:/sea_path:ro
 
     environment:
       - HOSTNAME=${HOSTNAME}
-      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_URL=http://172.16.29.8:12345/
       - INFLUX_ORG=AADC
-      - INFLUX_BUCKET=telegraf
-      - INFLUX_TOKEN=${INFLUX_TOKEN}
+      - INFLUX_BUCKET=openrvdas
+      - INFLUX_TOKEN=veeoqXe861nJC2g0jO6sRjwBxwbZB9WH6UAvt1nCFmbgSqn9_hIT76gkEmBgxUi1c6vwRBi7Z6sorJ1-UYi47w==
 
     command:
       - telegraf
